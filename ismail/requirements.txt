@@ -7,4 +7,5 @@ python-dotenv
 PyDrive2
 google-api-python-client
 google-auth
-Werkzeug 
+Werkzeug
+gunicorn
