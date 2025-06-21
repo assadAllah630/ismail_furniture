@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<h2>Products</h2>
+<a href="#" class="btn btn-success mb-2">Add Product</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name (EN)</th>
+            <th>Name (AR)</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Photos</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.name_en }}</td>
+            <td>{{ product.name_ar }}</td>
+            <td>{{ product.category.name if product.category else '' }}</td>
+            <td>{{ product.price }}</td>
+            <td>
+                {% if product.photos %}
+                    <img src="{{ product.photos[0].photo_url }}" width="50">
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ url_for('product_detail', product_id=product.id) }}" class="btn btn-info btn-sm">View</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %} 

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Product Detail{% endblock %}
+{% block content %}
+<h2>{{ product.name_en }} ({{ product.name_ar }})</h2>
+<p><b>Category:</b> {{ product.category.name if product.category else '' }}</p>
+<p><b>Item UID:</b> {{ product.item_uid }}</p>
+<p><b>Item Code:</b> {{ product.item_code }}</p>
+<p><b>Short Description:</b> {{ product.short_description }}</p>
+<p><b>Price:</b> {{ product.price }}</p>
+<p><b>Cost:</b> {{ product.cost }}</p>
+<p><b>Quantity:</b> {{ product.quantity }}</p>
+<p><b>Inventory Location:</b> {{ product.inventory_location }}</p>
+<p><b>Tags:</b> {% for tag in product.tags %}{{ tag.name }} {% endfor %}</p>
+
+{% if product.photos %}
+<div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for photo in product.photos %}
+    <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
+      <img src="{{ photo.photo_url }}" class="d-block w-100" style="max-width:400px;">
+    </div>
+    {% endfor %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endif %}
+
+<h4>Linked Media</h4>
+<ul>
+{% for media in product.media %}
+  <li>{{ media.title }} ({{ media.media_type }}) - <a href="{{ media.file_url }}" target="_blank">View</a></li>
+{% endfor %}
+</ul>
+
+<a href="#" class="btn btn-primary">Edit Product</a>
+{% endblock %} 
